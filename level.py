@@ -10,12 +10,12 @@ pygame.init()
 pygame.display.set_caption('Candy Jump')
 
 # global variables
-BG_color = (255, 255, 255)
-WIDTH, HEIGHT = 640, 480
+WIDTH, HEIGHT = 1000, 800
 FPS = 60
 Player_Vel = 5
 
 window = pygame.display.set_mode((WIDTH, HEIGHT))
+
 
 def set_background(name):
     image = pygame.image.load(join("assets", "Backgrounds", name))
@@ -24,15 +24,21 @@ def set_background(name):
 
     for i in range(WIDTH // width + 1):
         for j in range(HEIGHT // height + 1):
-            pos = [i + width, j * height]
+            pos = (i + width, j * height)
             tiles.append(pos)
     return tiles, image,
 
 
+def draw(window, background, bg_image):
+    for tile in background:
+        window.blit(bg_image, tile)
+
+    pygame.display.update()
+
 
 def main(window):
     clock = pygame.time.Clock()
-    background = set_background("tile_0008.png")
+    background, bg_image = set_background("tile_0000.png")
     run = True
     while run:
         clock.tick(FPS)
@@ -41,6 +47,7 @@ def main(window):
             if event.type == pygame.QUIT:
                 run = False
                 break
+        draw(window, background, bg_image)
     pygame.quit()
     quit()
 
