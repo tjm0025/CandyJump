@@ -7,6 +7,11 @@ pygame.init()
 screen_width = 1000
 screen_height = 1000
 
+# set clock speed
+clock = pygame.time.Clock()
+
+
+
 screen = pygame.display.set_mode((screen_width, screen_height))
 pygame.display.set_caption('Candy Jump')
 
@@ -129,15 +134,21 @@ world = World(world_data)
 run = True
 while run:
 
+    # set FPS limit
+    clock.tick(60)
+    fps = str(int(clock.get_fps()))
+    # SET BACKGROUND IMAGE
     screen.blit(background, (0, 0))
 
+    # draw world
     world.draw_world()
 
+    # update player location, status, etc
     player.player_update()
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
-            run = False
+            run = False  # quit game
     pygame.display.update()
 
 pygame.quit()
